@@ -2,9 +2,79 @@
 let computerScore = 0;
 let playerScore = 0;
 
+//UI
+const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
+const roundResult = document.getElementById('round_result');
+const pScore = document.getElementById('player_score');
+const cScore = document.getElementById('computer_score');
+const finalResults = document.getElementById('final_score');
+const resetDiv = document.getElementById('reset');
+resetDiv.style.display = "none";
+const resetButton = document.getElementById('reset_button');
+const playerSelect = document.getElementById('player_selection');
+const computerSelect = document.getElementById('computer_selection');
+
+
+rockButton.addEventListener('click', () => {
+    let computerChoice = computerPlay();
+    let round = playRound('rock', computerChoice);
+    playerSelect.innerText = `Player Selects Rock`;
+    computerSelect.innerText = `Computer Selects`
+    roundResult.innerText = round;
+    pScore.innerText = `Player Score: ${playerScore}`;
+    cScore.innerText = `Computer Score: ${computerScore}`;
+    checkForWinner();
+});
+
+
+paperButton.addEventListener('click', () => {
+    let computerChoice = computerPlay();
+    let round = playRound('paper', computerChoice);
+    roundResult.innerText = round;
+    pScore.innerText = `Player Score: ${playerScore}`;
+    cScore.innerText = `Computer Score: ${computerScore}`;
+    checkForWinner();
+});
+
+
+scissorsButton.addEventListener('click', () => {
+    let computerChoice = computerPlay();
+    let round = playRound('scissors', computerChoice);
+    roundResult.innerText = round;
+    pScore.innerText = `Player Score: ${playerScore}`;
+    cScore.innerText = `Computer Score: ${computerScore}`;
+    checkForWinner();
+});
+
+resetButton.addEventListener('click', () => {
+    reset();
+})
+
+function checkForWinner() {
+    if (playerScore === 5) {
+    finalResults.innerText = 'Game over! Player Wins!';
+    resetDiv.style.display = 'block';
+} else if (computerScore === 5) {
+    finalResults.innerText = 'Game over! Computer Wins!';
+    resetDiv.style.display = 'block';
+    }
+}
+
+function reset() {
+    computerScore = 0;
+    playerScore = 0;
+    roundResult.innerText = '';
+    finalResults.innerText = '';
+    pScore.innerText = 'Player Score: 0';
+    cScore.innerText = 'Computer Score: 0';
+    resetDiv.style.display = 'none';
+}
+
 //generate a random number between 1 - 3 and associate that number w/ R P or S
 //console.log to verify random number
-let computerPlay = function() {
+function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3) + 1;
     //console.log(randomNum);
         if (randomNum === 1) {
@@ -23,14 +93,14 @@ let computerPlay = function() {
 }
 
 //function to allow player to select R P or S, and convert to lowercase
-let playerSelection = function() {
-    let answer = prompt('Rock, Paper, or Scissors?').toLowerCase();
-    console.log(`Player selected: ${answer}`);
-    return answer;
-}
+// let playerSelection = function() {
+//     let answer = prompt('Rock, Paper, or Scissors?').toLowerCase();
+//     console.log(`Player selected: ${answer}`);
+//     return answer;
+// }
 
 //function to play a single round, that switches on the player selection
-let playRound = function(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
     switch(playerSelection){
         case 'rock':
             if (computerSelection === 'paper') {
@@ -70,25 +140,25 @@ let playRound = function(playerSelection, computerSelection) {
 }
 
 //function to run 5 rounds of the game, and display the winner at the end
-function game() {
-    for (let i = 0; i < 5; i++) {
-        //call the playRound function, and pass it the playerSelection and the computerPlay
-        console.log(playRound(playerSelection(),computerPlay()));
-    }
-    //code to display the best of 5 winner
-    if (playerScore > computerScore) {
-        console.log('Player Wins!');
-        alert('Player Wins!');
-    } else if (computerScore > playerScore) {
-        console.log('Computer Wins!');
-        alert('Computer Wins!');
-    } else if (computerScore === playerScore) {
-        console.log('It\'s a Tie!!!!');
-        alert('It\'s a Tie!!!!');
-    } else {
-        console.log('something foobared');
-        alert('something foobared');
-    }
-}
+// function game() {
+//     for (let i = 0; i < 5; i++) {
+//         //call the playRound function, and pass it the playerSelection and the computerPlay
+//         console.log(playRound(playerSelection(),computerPlay()));
+//     }
+//     //code to display the best of 5 winner
+//     if (playerScore > computerScore) {
+//         console.log('Player Wins!');
+//         alert('Player Wins!');
+//     } else if (computerScore > playerScore) {
+//         console.log('Computer Wins!');
+//         alert('Computer Wins!');
+//     } else if (computerScore === playerScore) {
+//         console.log('It\'s a Tie!!!!');
+//         alert('It\'s a Tie!!!!');
+//     } else {
+//         console.log('something foobared');
+//         alert('something foobared');
+//     }
+// }
 
-game();
+// game();
